@@ -4,7 +4,7 @@ import google.generativeai as genai
 st.title("⚖️ Prueba de Conexión")
 
 # PROBAMOS CON LA SEGUNDA LLAVE (terminada en zqil)
-API_KEY = "AIzaSyDE_TU_OTRA_LLAVE_AQUI_COMPLETA" 
+API_KEY = "AIzaSyCt3QJCZXboen90sPpDt5t2sGM0nRezqiI" 
 genai.configure(api_key=API_KEY)
 
 model = genai.GenerativeModel("gemini-1.5-flash")
