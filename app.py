@@ -1,7 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 
-st.title("⚖️ Prueba de Conexión")
+st.title("⚖️ Derecho y Algoritmo - Buscador legal ⚖️")
 
 # PROBAMOS CON LA SEGUNDA LLAVE (terminada en zqil)
 API_KEY = "AIzaSyCnU1irAQzAUJoaMPaQkr935yedKx5L6OA" 
