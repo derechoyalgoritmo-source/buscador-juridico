@@ -4,7 +4,7 @@ import google.generativeai as genai
 st.title("⚖️ Derecho y Algoritmo - Buscador legal by Leonardo Poses Stekelberg ⚖️")
 
 # PROBAMOS CON LA SEGUNDA LLAVE (terminada en zqil)
-API_KEY = "AIzaSyCt3QJCZXboen90sPpDt5t2sGM0nRezqiI" 
+API_KEY = "AIzaSyCnU1irAQzAUJoaMPaQkr935yedKx5L6OA" 
 genai.configure(api_key=API_KEY)
 
 model = genai.GenerativeModel("gemini-1.5-flash")
