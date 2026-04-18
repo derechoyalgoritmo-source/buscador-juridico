@@ -1,30 +1,20 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 1. Configuracion de la pagina
-st.set_page_config(page_title="Derecho y Algoritmo", page_icon="⚖️")
-st.title("⚖️ Buscador Jurídico Científico")
+st.title("⚖️ Prueba de Conexión")
 
-# 2. Configuracion de la API
-API_KEY = "AIzaSyCnU1irAQzAUJoaMPaQkr935yedKx5L6OA"
+# PROBAMOS CON LA SEGUNDA LLAVE (terminada en zqil)
+API_KEY = "AIzaSyDE_TU_OTRA_LLAVE_AQUI_COMPLETA" 
 genai.configure(api_key=API_KEY)
 
-# 3. Instrucciones
-SYSTEM_PROMPT = "Sos el Motor de Investigación Jurídica 'Derecho y Algoritmo'. Tu misión es la búsqueda técnica de doctrina, jurisprudencia y normas en Argentina."
+model = genai.GenerativeModel("gemini-1.5-flash")
 
-# 4. Modelo
-model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",
-    system_instruction=SYSTEM_PROMPT
-)
-
-# 5. Interfaz
-query = st.text_input("Investigación técnica sobre:", placeholder="Ej: Trabajo no registrado")
+query = st.text_input("Escribí cualquier palabra para probar:")
 
 if query:
-    with st.spinner("Buscando..."):
-        try:
-            response = model.generate_content(query)
-            st.markdown(response.text)
-        except Exception as e:
-            st.error(f"Error: {e}")
+    try:
+        # La consulta más simple del mundo
+        response = model.generate_content(f"Hola, respondé solo con la palabra 'OK' si recibís esto: {query}")
+        st.success(response.text)
+    except Exception as e:
+        st.error(f"Error definitivo: {e}")
