@@ -17,7 +17,7 @@ REGLAS: No opines. Priorizá links .edu.ar y .gob.ar. Verificá vigencia en Info
 Estructura: [Marco Normativo] - [Doctrina con Links] - [Jurisprudencia] - [Actualidad]."""
 
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-pro",
+    model_name="gemini-1.5-flash",
     system_instruction=SYSTEM_PROMPT,
     tools=[{'google_search_retrieval': {}}] # Activa el buscador de Google
 )
