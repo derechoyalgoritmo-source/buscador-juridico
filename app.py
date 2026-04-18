@@ -1,44 +1,37 @@
 import streamlit as st
 import google.generativeai as genai
 
-# CONFIGURACIÓN DE LA PÁGINA
+# 1. Configuración de la página
 st.set_page_config(page_title="Derecho y Algoritmo", page_icon="⚖️")
 st.title("⚖️ Buscador Jurídico Científico")
 
-# CONFIGURACIÓN DE LA API (Clave activa confirmada)
+# 2. Configuración de la API
 API_KEY = "AIzaSyCnU1irAQzAUJoaMPaQkr935yedKx5L6OA" 
 genai.configure(api_key=API_KEY)
 
-# SYSTEM PROMPT
-SYSTEM_PROMPT = """Sos un investigador jurídico experto en Derecho Argentino. 
-Tu objetivo es proveer normativa, doctrina y jurisprudencia de fuentes oficiales (.gob.ar, .edu.ar, InfoLEG). 
-No des consejos legales, solo información técnica."""
+# 3. Instrucciones del Sistema (Tu filtro científico)
+SYSTEM_PROMPT = """Sos el Motor de Investigación Jurídica 'Derecho y Algoritmo'. 
+Tu misión es la búsqueda técnica de doctrina, jurisprudencia y normas en Argentina.
+REGLAS: No opines. Priorizá links .edu.ar y .gob.ar. 
+Estructura: [Marco Normativo] - [Doctrina] - [Jurisprudencia] - [Actualidad]."""
 
-# CONFIGURACIÓN DEL MODELO CON SALVAGUARDAS
-@st.cache_resource
-def load_model():
-    # Intentamos configurar el buscador con la herramienta de Google
-    return genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction=SYSTEM_PROMPT,
-        tools=[{'google_search_retrieval': {}}]
-    )
+# 4. Carga del Modelo (Versión Estable)
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-flash",
+    system_instruction=SYSTEM_PROMPT
+)
 
-model = load_model()
-
-# INTERFAZ
-query = st.text_input("Investigación técnica sobre:", placeholder="Ej: Ley de Riesgos del Trabajo")
+# 5. Interfaz
+query = st.text_input("Investigación técnica sobre:", placeholder="Ej: Trabajo no registrado")
 
 if query:
-    with st.spinner("Buscando en repositorios científicos..."):
+    with st.spinner("Buscando en repositorios..."):
         try:
-            # Prueba de ejecución estándar
+            # Consulta directa
             response = model.generate_content(query)
             st.markdown(response.text)
         except Exception as e:
-            st.error(f"Aviso de conexión: {e}")
-            st.info("Intentando búsqueda alternativa sin filtros de búsqueda externa...")
-            # Si falla el grounding, responde con el conocimiento base para no dejarte vacío
-            model_basic = genai.GenerativeModel("gemini-1.5-flash")
-            response_alt = model_basic.generate_content(f"Basado en derecho argentino: {query}")
-            st.markdown(response_alt.text)
+            st.error(f"Hubo un problema con la consulta: {e}")
+            st.info("Sugerencia: Revisá si la API Key en Google AI Studio tiene restricciones de uso.")
+
+st.sidebar.info("Prototipo de Leonardo Poses Stekelberg. Enfoque: Derecho argentino.")
